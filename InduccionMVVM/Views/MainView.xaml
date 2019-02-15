@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="InduccionMVVM.Views.MainView"
+             xmlns:local="clr-namespace:InduccionMVVM.Views"             
+             Title="List of Products">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition>
+                    <RowDefinition.Height>
+                        <OnPlatform x:TypeArguments="GridLength">
+                            <On Platform="iOS">44</On>
+                            <On Platform="Android">44</On>
+                        </OnPlatform>
+                    </RowDefinition.Height>
+                </RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.Padding>
+                <OnPlatform x:TypeArguments="Thickness" iOS="0,0,0,0" >                    
+                </OnPlatform>
+            </Grid.Padding>
+            
+            <SearchBar x:Name="searchBar" HorizontalOptions="End"
+                       Grid.Row="0" Text="{Binding SearchText}"
+                       SearchCommand="{Binding SearchByName}"/>
+            
+           
+            
+            <Button x:Name="btnGetAll" Command="{Binding AllProduts}"
+                    HorizontalOptions="Start" VerticalOptions="Start"
+                    Grid.Row ="0" Text="All"/>
+            
+             <Button x:Name="btnGetByName" Command="{Binding SearchByName}"
+                    HorizontalOptions="End" VerticalOptions="Start"
+                    Grid.Row ="0" Text="Get By Name"/>
+            
+            
+            <!--enlistar json con la ino de api-->
+            <ListView Grid.Row="1" x:Name="listProducts"
+                      HorizontalOptions="FillAndExpand"
+                      VerticalOptions="FillAndExpand"
+                      CachingStrategy="RecycleElement"
+                      ItemsSource="{Binding ProductList}"
+                      RowHeight="80">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <local:ProductTemplate/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            
+            <!--control que maneja lo asíncrono y de espera hasta que llega la info-->
+            <ActivityIndicator x:Name="running" Grid.RowSpan="2" 
+                               IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" 
+                               VerticalOptions="Center"
+                               HorizontalOptions="Center" BackgroundColor="Transparent"/>
+                               
+            
+            
+        </Grid>    
+    </ContentPage.Content>
+</ContentPage>
+ 
