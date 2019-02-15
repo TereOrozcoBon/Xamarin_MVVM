@@ -19,6 +19,10 @@ namespace InduccionMVVM.Views
             {
                 var product = (ProductItemViewModel)e.SelectedItem;
 
+                var detailViewModel = new DetailViewModel(product);
+                var detailView = new DetailView(detailViewModel);
+
+                this.Navigation.PushAsync(detailView); //va al detalle
 
 
             };

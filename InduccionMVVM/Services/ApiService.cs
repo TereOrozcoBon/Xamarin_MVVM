@@ -25,7 +25,7 @@ namespace InduccionMVVM.Services
                 var queryString = string.Empty;
                 if (!string.IsNullOrEmpty(filter))
                 {
-                    queryString += $"?name{System.Net.WebUtility.UrlEncode(filter)}";
+                    queryString += $"?name={System.Net.WebUtility.UrlEncode(filter)}";
                 }
                 var result = await this.MakeHttpCall<List<Products>>(queryString);
                 return result;
